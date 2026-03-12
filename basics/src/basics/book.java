@@ -1,18 +1,13 @@
 package basics;
 
 import java.util.*;
-
-
 public class book {
-
-   
     private static class Book {
         String id;
         String title;
         String author;
         int price;
         String reservedBy; 
-
         Book(String id, String title, String author, int price) {
             this.id = id;
             this.title = title;
@@ -20,32 +15,24 @@ public class book {
             this.price = price;
             this.reservedBy = null;
         }
-
         boolean isReserved() {
             return reservedBy != null && !reservedBy.isBlank();
         }
-
-        
         public String toString() {
             String status = isReserved() ? ("RESERVED by " + reservedBy) : "Available";
             return String.format("{id=%s, title='%s', author='%s', price=%d, status=%s}",
                     id, title, author, price, status);
         }
     }
-
-    
     private static class InvalidOptionException extends Exception {
         InvalidOptionException(String message) {
             super(message);
         }
     }
-
-    
     private static final Scanner SC = new Scanner(System.in);
     private static final List<Book> BOOKS = new ArrayList<>();
 
     public static void main(String[] args) {
-       
         BOOKS.add(new Book("A1", "zero to one", "anish", 100));
         BOOKS.add(new Book("B2", "shallow", "ashish", 200));
 
@@ -97,14 +84,11 @@ public class book {
         return choice;
     }
 
-    
     private static void addBook() {
         System.out.println("\n-- Add a Book --");
 
         System.out.print("Enter Book ID (e.g., C3): ");
         String id = nonEmptyLine();
-
-   
         if (findById(id).isPresent()) {
             System.out.println("[Error] A book with this ID already exists.");
             return;
@@ -130,12 +114,14 @@ public class book {
         System.out.println("1. By Title");
         System.out.println("2. By ID");
         System.out.print("Choose an option (1-2): ");
+
         if (!SC.hasNextInt()) {
             SC.nextLine();
             throw new InvalidOptionException("Removal choice must be 1 or 2.");
         }
         int opt = SC.nextInt();
         SC.nextLine();
+
         switch (opt) {
             case 1 -> {
                 System.out.print("Enter Title to remove: ");
@@ -159,6 +145,7 @@ public class book {
         System.out.println("1. By Title");
         System.out.println("2. By ID");
         System.out.print("Choose an option (1-2): ");
+
         if (!SC.hasNextInt()) {
             SC.nextLine();
             throw new InvalidOptionException("Reservation choice must be 1 or 2.");
@@ -197,6 +184,8 @@ public class book {
         b.reservedBy = name;
         System.out.println("Book reserved successfully!");
     }
+
+   
     private static void displayBooks() {
         System.out.println("\n-- Current Books --");
         if (BOOKS.isEmpty()) {
@@ -227,7 +216,7 @@ public class book {
     private static Integer askPrice() {
         System.out.print("Enter Price (integer): ");
         if (!SC.hasNextInt()) {
-            SC.nextLine();
+            SC.nextLine(); 
             return null;
         }
         int p = SC.nextInt();
