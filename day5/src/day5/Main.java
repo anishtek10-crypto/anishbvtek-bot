@@ -1,149 +1,86 @@
 package day5;
-
-
 import java.util.*;
- 
+
 public class Main {
- 
+
     public static void main(String[] args) {
- 
-        library library = new library();
 
         Scanner sc = new Scanner(System.in);
- 
-        while (true) {
- 
-            System.out.println("\n====== Library Management System ======");
 
-            System.out.println("1. Add Book");
+        library library = new library();
 
-            System.out.println("2. Display Books");
+        library.setBooks(FileService.loadBooks());
 
-            System.out.println("3. Search Book");
+        while(true) {
 
-            System.out.println("4. Borrow Book");
-
-            System.out.println("5. Show Available Books");
-
-            System.out.println("6. Sort Books");
-
-            System.out.println("7. Save Books");
-
-            System.out.println("8. Load Books");
-
-            System.out.println("9. Exit");
- 
-            System.out.print("Enter choice: ");
+            System.out.println("\n1 Add Book");
+            System.out.println("2 Display Books");
+            System.out.println("3 Search Book");
+            System.out.println("4 Borrow Book");
+            System.out.println("5 Show Available Books");
+            System.out.println("6 Sort Books");
+            System.out.println("7 Exit");
 
             int choice = sc.nextInt();
-
             sc.nextLine();
- 
-            switch (choice) {
- 
+
+            switch(choice) {
+
                 case 1:
- 
-                    System.out.print("Enter Book ID: ");
 
+                    System.out.print("ID: ");
                     int id = sc.nextInt();
-
                     sc.nextLine();
- 
-                    System.out.print("Enter Book Title: ");
 
+                    System.out.print("Title: ");
                     String title = sc.nextLine();
- 
-                    System.out.print("Enter Author Name: ");
 
+                    System.out.print("Author: ");
                     String author = sc.nextLine();
- 
-                    Book book = new Book(id, title, author);
- 
-                    library.addBook(book);
- 
-                    System.out.println("Book Added Successfully");
+
+                    library.addBook(
+                        new Book(id,title,author,true));
 
                     break;
- 
+
                 case 2:
- 
-                    System.out.println("All Books:");
-
                     library.displayBooks();
-
                     break;
- 
+
                 case 3:
- 
-                    System.out.print("Enter book title to search: ");
 
-                    String searchTitle = sc.nextLine();
- 
-                    library.searchBook(searchTitle);
+                    System.out.print("Enter title: ");
+                    String search = sc.nextLine();
 
+                    library.searchByTitle(search);
                     break;
- 
+
                 case 4:
- 
-                    System.out.print("Enter Book ID to borrow: ");
 
-                    int borrowId = sc.nextInt();
- 
-                    library.borrowBook(borrowId);
+                    System.out.print("Book ID: ");
+                    int bookId = sc.nextInt();
 
+                    library.borrowBook(bookId);
                     break;
- 
+
                 case 5:
- 
-                    System.out.println("Available Books:");
 
                     library.showAvailableBooks();
-
                     break;
- 
+
                 case 6:
- 
-                    System.out.println("Sorted Books:");
 
-                    library.sortBooks();
-
+                    library.sortBooksByTitle();
                     break;
- 
+
                 case 7:
- 
-                    Saving.saveBooks(library.getBooks());
 
-                    break;
- 
-                case 8:
- 
-                    List<Book> books = Saving.loadBooks();
- 
-                    if (books != null) {
+                    FileService.saveBooks(
+                        library.getBooks());
 
-                        library.setBooks(books);
-
-                    }
- 
-                    break;
- 
-                case 9:
- 
-                    System.out.println("Exiting Program...");
-
+                    System.out.println("Saved to file.");
                     System.exit(0);
-
-                    break;
- 
-                default:
-
-                    System.out.println("Invalid choice");
-
             }
-
         }
-
     }
-
 }
- 

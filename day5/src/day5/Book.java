@@ -1,47 +1,45 @@
 package day5;
 
-import java.io.Serializable;
+public class Book {
 
-public class Book  {
- 
     private int id;
     private String title;
     private String author;
-    private boolean borrowed;
- 
-    public Book(int id, String title, String author) {
+    private boolean available;
+
+    public Book(int id, String title, String author, boolean available) {
         this.id = id;
         this.title = title;
         this.author = author;
-        this.borrowed = false;
+        this.available = available;
     }
- 
+
     public int getId() {
         return id;
     }
- 
+
     public String getTitle() {
         return title;
     }
- 
+
     public String getAuthor() {
         return author;
     }
- 
-    public boolean isBorrowed() {
-        return borrowed;
+
+    public boolean isAvailable() {
+        return available;
     }
- 
+
     public void borrowBook() {
-        borrowed = true;
+        available = false;
     }
- 
+
     public void returnBook() {
-        borrowed = false;
+        available = true;
     }
- 
-   
+
+    @Override
     public String toString() {
-        return id + " | " + title + " | " + author + " | Borrowed: " + borrowed;
+        return id + "," + title + "," + author + "," + available;
     }
 }
