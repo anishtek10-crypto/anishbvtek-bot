@@ -4,29 +4,27 @@ import java.util.ArrayList;
 import java.util.List;
  
 class library {
- 
 	private List<Book> books = new ArrayList<>();
- 
 	public void add(String id, String title, float price, String author) {
 		books.add(new Book(id, title, price, author));
 		System.out.println("Book added successfully.");
 	}
- 
 	public void reserve(String title) throws BookNotAvailableException {
-		for (Book book : books) {
-			if (book.getTitle().equalsIgnoreCase(title) && book.getStatus() == BookStatus.AVAILABLE) {
- 
-				book.setStatus(BookStatus.BOOKED);
- 
-				System.out.println("""
-						Borrowed: %s
-						""".formatted(book.getTitle()));
-				return;
-			}
-		}
-		throw new BookNotAvailableException("Book not available.");
+	    if (title == null || title.trim().isEmpty()) {
+	        throw new IllegalArgumentException("Book title cannot be null or blank.");
+	    }
+	    for (Book book : books) {
+	        if (book.getTitle().equalsIgnoreCase(title) &&
+	            book.getStatus() == BookStatus.AVAILABLE) {
+	            book.setStatus(BookStatus.BOOKED);
+	            System.out.println("""
+	                    Borrowed: %s
+	                    """.formatted(book.getTitle()));
+	            return;
+	        }
+	    }
+	    throw new BookNotAvailableException("Book not available.");
 	}
- 
 	public Book remove(String id) throws BookNotAvailableException {
 		for (Book b : books) {
 			if (b.getId().equalsIgnoreCase(id)) {
@@ -51,7 +49,6 @@ class library {
 		}
 		return found;
 	}
- 
 	public void markDamaged(String id) throws BookNotAvailableException  {
 		for (Book b : books) {
 			if (b.getId().equalsIgnoreCase(id)) {
@@ -64,7 +61,6 @@ class library {
 		}
 		throw new BookNotAvailableException("No book found for ID: " + id);
 	}
- 
 	public void returnBook(String id) throws BookNotAvailableException {
 		for (Book b : books) {
 			if (b.getId().equalsIgnoreCase(id)) {
