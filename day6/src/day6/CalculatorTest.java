@@ -1,5 +1,6 @@
 package day6;
 
+import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
@@ -22,13 +23,20 @@ class CalculatorTest {
 	void testDivide() {
 		Calculator math = new Calculator();
 		int result = math.divide(25, 5);
-		assertEquals(3,result);
+		assertEquals(5,result);
 	} 
 	@Test
 	void testDivideByZero() {
 		Calculator math = new Calculator();
-		int result = math.add(25, 0);
-		assertEquals(3,result);
+		assertThrows(ArithmeticException.class,()->{
+			math.divide(25,0);
+		});
 	} 
+	@Test
+	void testDivideByNegativeDivisor() {
+		Calculator math = new Calculator();
+		int result = math.divide(25, -5);
+		assertEquals(-5,result);
+	
 
-}
+}}

@@ -1,0 +1,2 @@
+{id=A2, title='BUS', author='HERO', price=100, status=Available}
+ID: 123 Title: GOT Price: 1000.0 Author: ANISH
