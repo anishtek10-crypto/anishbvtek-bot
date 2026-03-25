@@ -1,0 +1,16 @@
+body {
+    font-family:Arial;
+    text-align:center;
+}
+ 
+ul {
+    list-style:none;
+}
+li {
+    margin: 10px;
+}
+ 
+.completed {
+    text-decoration:line-through;
+    color:gray(248, 5, 5);
+}
