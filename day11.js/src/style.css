@@ -12,5 +12,5 @@ li {
  
 .completed {
     text-decoration:line-through;
-    color:gray(248, 5, 5);
+    color: beige(248,5,5);
 }
