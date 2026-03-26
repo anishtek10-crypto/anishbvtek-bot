@@ -1,0 +1,85 @@
+body{
+    font-family: Arial;
+    background: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+.app{
+    background: white;
+    padding: 20px;
+    width: 350px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.input-row{
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+#todo-input{
+    flex: 2;
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+#time-input{
+    flex: 1;
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.add-btn{
+    padding: 6px 10px;
+    background: teal;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.add-btn:hover{
+    background: darkcyan;
+}
+ul{
+    list-style: none;
+    padding: 0;
+}
+li{
+    display: grid;
+    grid-template-columns: 1fr 80px 80px;
+    align-items: center;
+    margin-top: 10px;
+    gap: 10px;
+}
+.task{
+    text-align: left;
+}
+.time{
+    color: gray;
+    font-size: 14px;
+}
+.actions{
+    display: flex;
+    gap: 5px;
+}
+.actions button{
+    border: none;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    color: white;
+    cursor: pointer;
+}
+.actions button:first-child{
+    background: green;
+}
+.actions button:last-child{
+    background: red;
+}
+.completed .task{
+    text-decoration: line-through;
+    color: gray;
+}
