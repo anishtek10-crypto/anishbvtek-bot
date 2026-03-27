@@ -12,6 +12,7 @@ public class LogAnalyzer {
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = br.readLine()) != null) {
+            	String upperLine = line.toUpperCase();
                 if (line.contains("INFO")) {
                     infoCount++;
                 } else if (line.contains("WARN") || line.contains("WARNING")) {
@@ -22,11 +23,9 @@ public class LogAnalyzer {
                     otherCount++;
                 }
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         System.out.println("LOG SUMMARY :");
         System.out.println("INFO: " + infoCount);
         System.out.println("WARN: " + warnCount);

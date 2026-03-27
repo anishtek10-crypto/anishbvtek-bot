@@ -11,8 +11,10 @@
     <div class="input-row">
         <input type="text" id="todo-input" placeholder="Enter task">
         <input type="time" id="time-input">
-        <button class="add-btn" onclick="addTodo()">Add</button>
+        <button class="add-button" onclick="addTodo()">Add</button>
+        <button class ="sort-button" onclick = "sortByName()">sort</button>
     </div>
+    <p id ="error-message"></p>
     <ul id="todo-list"></ul>
 </div>
 <script src="app.js"></script>

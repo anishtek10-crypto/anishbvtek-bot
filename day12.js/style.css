@@ -1,6 +1,6 @@
 body{
     font-family: Arial;
-    background: #f4f4f4;
+    background:white;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -8,9 +8,9 @@ body{
     margin: 0;
 }
 .app{
-    background: white;
+    background: gray;
     padding: 20px;
-    width: 350px;
+    width: 400px;
     border-radius: 10px;
     text-align: center;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
@@ -32,6 +32,11 @@ body{
     border: 1px solid #ccc;
     border-radius: 5px;
 }
+#error-message{
+    color:red;
+    margin : 5px;
+    font-size: 15px;
+}
 .add-btn{
     padding: 6px 10px;
     background: teal;
@@ -42,6 +47,17 @@ body{
 }
 .add-btn:hover{
     background: darkcyan;
+}
+.sort-btn{
+    padding: 6px 10px;
+    background: #555;
+    color:white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.sort-btn:hover{
+    background: #333;
 }
 ul{
     list-style: none;
