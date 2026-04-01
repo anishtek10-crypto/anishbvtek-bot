@@ -77,9 +77,24 @@ const a = {name :"A",age:20};
 const b = {name :"B",age:21};
 console.log(diff(a,b));
 */
-function validate(obj,requiredKeys){
+/*function validate(obj,requiredKeys){
     return requiredKeys.every(key=> key in obj);
 }
 const data = {name:"john",age:25};
 console.log(validate(data,["name","age","email"]));
+*/
+/*let array = [1,2,3];
+console.log(arr[3]);
+*/
+/*for(let i=0;i<3;i++){
+    setTimeout(()=>console.log(i),100)
+}
+    */
+/*console.log(0.1+0.2===0.3);*/
 
+/*console.log("A");
+setTimeout(()=>console.log("B"),0);
+console.log("C");*/
+/*const arr =[1,2];
+const array =[3,4];*/
+[1,2,3].filter(n=>n>1);

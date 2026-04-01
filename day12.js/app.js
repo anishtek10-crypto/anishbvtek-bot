@@ -5,23 +5,27 @@ function saveTodos(){
 function addTodo(){
     const textInput = document.getElementById('todo-input');
     const timeInput = document.getElementById('time-input');
+    const priorityInput = document.getElementById('priority-input');
     const errorMessage = document.getElementById('error-message');
     const text = textInput.value.trim();
     const time = timeInput.value;
-    if(text===''){
-        errorMessage.textContent="task cannot be empty";
+    const priority = priorityInput.value;
+    if(text === ''){
+        errorMessage.textContent = "Task cannot be empty";
         textInput.classList.add("error-input");
         return;
     }
     textInput.classList.remove("error-input");
-    errorMessage.textContent="";
+    errorMessage.textContent = "";
     todos.push({
         text: text,
         time: time,
+        priority: priority || "Low",
         completed: false
     });
     textInput.value = '';
     timeInput.value = '';
+    priorityInput.value = '';
     saveTodos();
     renderTodos();
 }
@@ -40,6 +44,10 @@ function toggleComplete(index){
     saveTodos();
     renderTodos();
 }
+function toggleDropdown(index){
+    const dropdown = document.getElementById(`dropdown-${index}`);
+    dropdown.classList.toggle('show');
+}
 function renderTodos(){
     const list = document.getElementById('todo-list');
     list.innerHTML = '';
@@ -49,19 +57,24 @@ function renderTodos(){
             li.classList.add('completed');
         }
         li.innerHTML = `
-            <span class="task">${todo.text}</span>
-            <span class="time">${todo.time || '--'}</span>
-            <div class="actions">
-                <button onclick="toggleComplete(${index})">yes</button>
-                <button onclick="deleteTodo(${index})">no</button>
+            <div class="task-header" onclick="toggleDropdown(${index})">
+                ${todo.text}
+            </div>
+            <div class="dropdown-content" id="dropdown-${index}">
+                <span class="time">${todo.time || '--'}</span>
+                <span class="priority ${(todo.priority || "Low").toLowerCase()}">
+                    ${todo.priority || "Low"}
+                </span>
+                <div class="actions">
+                    <button class="yes-btn" onclick="toggleComplete(${index})">Yes</button>
+                    <button class="no-btn" onclick="deleteTodo(${index})">No</button>
+                </div>
             </div>
         `;
         list.appendChild(li);
     });
 }
 renderTodos();
-const input = document.getElementById('todo-input');
-const error = document.getElementById('error-message');
-input.addEventListener('input',()=>{
-    error.textContent="";
+document.getElementById('todo-input').addEventListener('input',()=>{
+    document.getElementById('error-message').textContent = "";
 });

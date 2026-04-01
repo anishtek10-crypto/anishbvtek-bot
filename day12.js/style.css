@@ -1,6 +1,6 @@
 body{
     font-family: Arial;
-    background:white;
+    background: white;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -10,92 +10,112 @@ body{
 .app{
     background: gray;
     padding: 20px;
-    width: 400px;
+    width: 600px;
     border-radius: 10px;
     text-align: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 .input-row{
     display: flex;
-    gap: 10px;
+    gap: 8px;
+    flex-wrap: wrap;
     margin-bottom: 15px;
 }
-#todo-input{
-    flex: 2;
+#todo-input, #time-input, #priority-input{
     padding: 6px;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
-#time-input{
-    flex: 1;
-    padding: 6px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-#error-message{
-    color:red;
-    margin : 5px;
-    font-size: 15px;
-}
-.add-btn{
-    padding: 6px 10px;
+#todo-input{ flex: 2; }
+#time-input{ flex: 1; }
+.add-button{
     background: teal;
     color: white;
     border: none;
+    padding: 6px 12px;
     border-radius: 5px;
     cursor: pointer;
 }
-.add-btn:hover{
+.add-button:hover{
     background: darkcyan;
 }
-.sort-btn{
-    padding: 6px 10px;
+.sort-button{
     background: #555;
-    color:white;
+    color: white;
     border: none;
+    padding: 6px 12px;
     border-radius: 5px;
     cursor: pointer;
 }
-.sort-btn:hover{
+.sort-button:hover{
     background: #333;
 }
-ul{
-    list-style: none;
-    padding: 0;
+#error-message{
+    color: red;
+    font-size: 14px;
 }
 li{
-    display: grid;
-    grid-template-columns: 1fr 80px 80px;
-    align-items: center;
     margin-top: 10px;
-    gap: 10px;
 }
-.task{
+.task-header{
+    background: #ddd;
+    padding: 8px;
+    border-radius: 5px;
+    cursor: pointer;
     text-align: left;
+}
+.task-header:hover{
+    background: #ccc;
+}
+.dropdown-content{
+    display: none;
+    padding: 10px;
+    background: #f9f9f9;
+    border-radius: 5px;
+    margin-top: 5px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.dropdown-content.show{
+    display: flex;
 }
 .time{
     color: gray;
     font-size: 14px;
 }
+.priority{
+    padding: 3px 8px;
+    border-radius: 5px;
+    color: white;
+    font-size: 12px;
+}
+.priority.high{ background: red; }
+.priority.medium{ background: orange; }
+.priority.low{ background: green; }
 .actions{
     display: flex;
-    gap: 5px;
+    gap: 10px;
 }
-.actions button{
-    border: none;
-    border-radius: 50%;
-    width: 25px;
-    height: 25px;
+.yes-btn{
+    background: green;
     color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
     cursor: pointer;
 }
-.actions button:first-child{
-    background: green;
-}
-.actions button:last-child{
+.no-btn{
     background: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
 }
-.completed .task{
+.yes-btn:hover{ background: darkgreen; }
+.no-btn:hover{ background: darkred; }
+.completed .task-header{
     text-decoration: line-through;
     color: gray;
 }
