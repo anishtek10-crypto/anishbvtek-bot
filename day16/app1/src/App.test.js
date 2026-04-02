@@ -1,8 +1,11 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen,fireEvent } from '@testing-library/react';
 import App from './App';
-
-test('renders learn react link', () => {
+test("adds and deletes note", () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  fireEvent.change(screen.getByPlaceholderText(/enter note/i),{target :{value:"New Note"}
+});
+fireEvent.click(screen.getByText(/add/i));
+expect(screen.getByText("New Note")).toBeInTheDocument();
+fireEvent.click(screen.getByText(/delete/i));
+expect(screen.queryByText("New Note")).not.toBeInTheDocument();
 });
