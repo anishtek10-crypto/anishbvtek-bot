@@ -6,8 +6,8 @@ test("adds and deletes note", async () => {
     target: { value: "New Note" },
   });
   fireEvent.click(screen.getByText(/add/i));
-  const note = await screen.findByText(/New Note,created/i);
+  const note = await screen.findByText(/New Note/i);
   expect(note).toBeInTheDocument();
   fireEvent.click(screen.getByText(/delete/i));
-  expect(screen.queryByText(/New Note,created/i)).not.toBeInTheDocument();
+  expect(screen.queryByText(/New Note/i)).not.toBeInTheDocument();
 });

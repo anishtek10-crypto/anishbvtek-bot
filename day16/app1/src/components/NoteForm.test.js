@@ -8,5 +8,11 @@ test("adds note on submit", () => {
   });
   fireEvent.click(screen.getByText(/add/i));
   expect(addNote).toHaveBeenCalledTimes(1);
-  expect(addNote).toHaveBeenCalledWith({title: "Test Note",status: "created"});
+  expect(addNote).toHaveBeenCalledWith({title: "Test Note",status: false});
+});
+test("do not add empty note",()=>{
+    const addNote = jest.fn();
+    render(<NoteForm addNote={addNote}/>);
+    fireEvent.click(screen.getByText(/add/i));
+    expect(addNote).not.toHaveBeenCalled();
 });
