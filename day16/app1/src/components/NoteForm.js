@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 function NoteForm({ addNote }) {
   const [note, setNote] = useState({
     title: "",
     status: false
   });
   const [error, setError] = useState(""); 
+  const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!note.title.trim()) {
@@ -13,7 +15,8 @@ function NoteForm({ addNote }) {
     }
     addNote(note);
     setNote({ title: "", status: false });
-    setError(""); 
+    setError("");
+    navigate("/"); 
   };
   return (
     <form onSubmit={handleSubmit}>

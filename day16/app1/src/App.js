@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import api from "./api";
 import NoteForm from "./components/NoteForm";
 import NoteList from "./components/NoteList";
+import Navbar from "./components/Navbar"
 import "./App.css";
 function App() {
   const [notes, setNotes] = useState([]);
@@ -30,11 +31,27 @@ function App() {
     setNotes(prev =>prev.map(n => n.id === id ? res.data : n));
   };
   return (
-    <div className="app-container">
-      <h1>Notes App</h1>
-      <NoteForm addNote={addNote} />
-      <NoteList notes={notes} deleteNote={deleteNote} toggleStatus={toggleStatus}/>
-    </div>
+    <Router>
+      <Navbar/>
+      <div className="app-container">
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <NoteList
+                notes={notes}
+                deleteNote={deleteNote}
+                toggleStatus={toggleStatus}
+              />
+            }
+          />
+          <Route
+            path="/add"
+            element={<NoteForm addNote={addNote} />}
+          />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 export default App;
