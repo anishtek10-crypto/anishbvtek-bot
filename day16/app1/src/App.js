@@ -13,6 +13,10 @@ function App() {
     setNotes(res.data);
   };
   const addNote = async (note) => {
+    const newNote = {
+      ...note,
+      createdAt:new Date().toLocaleString(),
+    }
     const res = await api.post("/notes", note);
     setNotes(prev => [...prev, res.data]);
   };

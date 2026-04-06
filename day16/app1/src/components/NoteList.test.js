@@ -2,10 +2,10 @@ import {render,screen} from "@testing-library/react";
 import NoteList from "./NoteList";
 test("render notes",()=>{
     const notes = [
-        {id:1,title:"Note 1",status:false},
-        {id:2,title:"Note 2",status:true}
+        {id:1,title:"Note 1",status:false,createdAt:"mock time"},
+        {id:2,title:"Note 2",status:true,createdAt:"mock time"}
     ];
-    render(<NoteList notes = {notes} deleteNote={()=>{}}/>);
+    render(<NoteList notes = {notes} deleteNote={()=>{}} toggleStatus={()=>{}}/>);
     expect(screen.getByText(/Note 1/i)).toBeInTheDocument();
     expect(screen.getByText(/Note 2/i)).toBeInTheDocument();
 });
