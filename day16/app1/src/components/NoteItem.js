@@ -1,7 +1,8 @@
 function NoteItem({ note, deleteNote, toggleStatus }) {
   return (
-    <li>
-      <span className={note.status ? "completed" : ""}>{note.title}</span>
+    <div className="note-card">
+      <h3 className={note.status ? "completed" : ""}>{note.title}</h3>
+      <div className="button-group">
       <button onClick={() => toggleStatus(note.id, true)}>YES</button>
       <button onClick={() => {
         const confirmAction = window.confirm("Are you sure you want to mark this as NOT completed?");
@@ -15,6 +16,9 @@ function NoteItem({ note, deleteNote, toggleStatus }) {
       <button className="delete-btn" onClick={() =>{
         const confirmDelete = window.confirm("are you sure you want to DELETE this task");
         if (confirmDelete){
-          deleteNote(note.id)}}}>Delete</button></li>);
+          deleteNote(note.id)}}}>Delete</button>
+          </div>
+          </div>
+  )
         }
 export default NoteItem;

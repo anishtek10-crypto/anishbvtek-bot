@@ -1,8 +1,10 @@
-body{
-    font-family:Arial, sans-serif;
-    background: radial-gradient(circle at top left, #14b1e0 0%, #053566 100%);
-    margin:0;
-    padding: 0;
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: radial-gradient(circle at top left, #14b1e0 0%, #053566 100%);
+  margin: 0;
+  padding: 0;
+  color: #333;
 }
 nav {
   display: flex;
@@ -10,78 +12,120 @@ nav {
   align-items: center;
   background: #053566;
   color: white;
-  padding: 15px 20px;
+  padding: 15px 30px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+  border-radius: 0 0 10px 10px;
 }
 nav h2 {
   margin: 0;
+  font-size: 24px;
 }
 nav a {
   color: white;
   text-decoration: none;
-  margin-left: 15px;
+  margin-left: 20px;
   font-weight: bold;
+  transition: all 0.2s;
 }
 nav a:hover {
   text-decoration: underline;
+  color: #14b1e0;
 }
 .app-container {
-    width: 400px;
-    margin: 20px auto;  
-    background: white;
-    padding: 20px;
-    border-radius: 10px; 
-    box-shadow: 0 4px 10px rgba(82, 19, 19, 0.1);
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
 }
-h1{
-    text-align: center;
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #053566;
 }
-form{
-  display:flex ;
-  gap: 10px;
-  margin-bottom: 20px;  
-}
-input[type="text"]{
-    flex:1;
-    padding:8px;
-    border: 1px solid #ccc;
-    border-radius: 5px ;
-}
-button{
-    padding: 8px 12px;
-    border: none;
-    background:#4ca;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-}
-button:hover{
-    background:#45a049 ;
-}
-ul{
-    list-style: none;
-    padding: 0;
-}
-li {
+form {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  margin-bottom: 10px;
-  background: #f9f9f9;
-  border-radius: 5px;
+  gap: 10px;
+  margin-bottom: 20px;
 }
-li span {
+input[type="text"] {
   flex: 1;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  font-size: 16px;
 }
-.completed{
-    text-decoration: line-through;
-    color: gray;
+input[type="text"]:focus {
+  border-color: #14b1e0;
+  box-shadow: 0 0 5px rgba(20, 177, 224, 0.5);
 }
-.delete-btn {
-  background: #e74c3c;
+button {
+  padding: 10px 16px;
+  border: none;
+  background: #14b1e0;
+  color: white;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
 }
-
-.delete-btn:hover {
-  background: #c0392b;
+button:hover {
+  background: #0f8cbf;
 }
-
+.notes-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 10px;
+}
+.note-card {
+  background: white;
+  padding: 15px 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.note-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+.note-text {
+  font-size: 16px;
+  margin-bottom: 10px;
+  word-wrap: break-word;
+}
+.completed {
+  text-decoration: line-through;
+  color: gray;
+}
+.btn-group {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+button.delete-btn {
+  background-color: #e74c3c;
+  color: white;
+}
+button.delete-btn:hover {
+  background-color: #c0392b;
+}
+button.status-btn {
+  background-color: #52c41a;
+  color: white;
+}
+button.status-btn:hover {
+  background-color: #389e0d;
+}
+@media (max-width: 768px) {
+  .notes-container {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+  nav {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}
