@@ -16,13 +16,13 @@ function App() {
     const newNote = {
       ...note,
       createdAt:new Date().toLocaleString(),
-    }
-    const res = await api.post("/notes", note);
-    setNotes(prev => [...prev, res.data]);
+    };
+    await api.post("/notes",newNote);
+    fetchNotes();
   };
   const deleteNote = async (id) => {
     await api.delete(`/notes/${id}`);
-    setNotes(prev => prev.filter(n => n.id !== id));
+    fetchNotes();
   };
   const toggleStatus = async (id, value) => {
     const note = notes.find(n => n.id === id);
