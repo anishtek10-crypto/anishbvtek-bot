@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 function NoteForm({ addNote }) {
   const [note, setNote] = useState({
     title: "",
-    status: false
+    status: false,
+    priority : 3
   });
   const [error, setError] = useState(""); 
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ function NoteForm({ addNote }) {
       return;
     }
     addNote(note);
-    setNote({ title: "", status: false });
+    setNote({ title: "", status: false,priority:3});
     setError("");
     navigate("/"); 
   };
@@ -25,6 +26,10 @@ function NoteForm({ addNote }) {
         Done:
         <input type="checkbox" checked={note.status} onChange={(e) => setNote({ ...note, status: e.target.checked })}/>
       </label>
+      <div className="priority-slider">
+        <label>priority:{note.priority}</label>
+        <input type="range" min = "1" max = "5"value={note.priority} onChange={(e) => setNote({ ...note, priority: Number(e.target.value)})}/>
+      </div>
       <button>Add</button>
       {error && <p style={{ color: "red" }}>{error}</p>}
     </form>

@@ -96,7 +96,7 @@ button:hover {
   text-decoration: line-through;
   color: gray;
 }
-button.status-btn {
+button.status-button {
   background-color: #52c41a;
   color: white;
   padding: 6px 12px;
@@ -104,10 +104,10 @@ button.status-btn {
   cursor: pointer;
   transition: all 0.2s;
 }
-button.status-btn:hover {
+button.status-button:hover {
   background-color: #389e0d;
 }
-button.delete-btn {
+button.delete-button {
   background-color: #e74c3c;
   color: white;
   padding: 6px 12px;
@@ -133,3 +133,24 @@ button.delete-btn:hover {
     padding: 10px;
   }
 }
+.priority-container{
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  width: 150px;
+}
+.priority-container input{
+  cursor: pointer;
+}
+.priority{
+  padding: 4px 8px;
+  border-radius:5px;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+}
+.p-1{background:#2ec771;}
+.p-2{background:#27ae60;}
+.p-3{background:#f1c40f;}
+.p-4{background:#e67e22;}
+.p-5{background:#e74c3c;} 

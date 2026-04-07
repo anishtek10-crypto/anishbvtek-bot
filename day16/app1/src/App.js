@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {useState, useEffect} from "react";
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import api from "./api";
 import NoteForm from "./components/NoteForm";
 import NoteList from "./components/NoteList";
@@ -7,7 +7,6 @@ import Navbar from "./components/Navbar";
 import "./App.css";
 function App() {
   const [notes, setNotes] = useState([]);
-  const [sortAsc, setSortAsc] = useState(true);
   useEffect(() => {
     fetchNotes();
   }, []);
@@ -16,24 +15,24 @@ function App() {
       const res = await api.get("/notes");
       setNotes(res.data);
     } catch (err) {
-      console.error("Failed to fetch notes:", err);
+      console.error("Error fetching notes:", err);
     }
   };
   const addNote = async (note) => {
     try {
       const newNote = { ...note, createdAt: new Date().toLocaleString() };
       await api.post("/notes", newNote);
-      fetchNotes();
+      fetchNotes(); 
     } catch (err) {
-      console.error("Failed to add note:", err);
+      console.error("Error adding note:", err);
     }
   };
   const deleteNote = async (id) => {
     try {
       await api.delete(`/notes/${id}`);
-      fetchNotes();
+      setNotes((prev) => prev.filter((n) => n.id !== id)); 
     } catch (err) {
-      console.error("Failed to delete note:", err);
+      console.error("Error deleting note:", err);
     }
   };
   const toggleStatus = async (id, value) => {
@@ -42,19 +41,12 @@ function App() {
       const res = await api.put(`/notes/${id}`, { ...note, status: value });
       setNotes((prev) => prev.map((n) => (n.id === id ? res.data : n)));
     } catch (err) {
-      console.error("Failed to update status:", err);
+      console.error("Error toggling status:", err);
     }
   };
-  const sortNotes = () => {
-    const sorted = [...notes].sort((a, b) =>
-      sortAsc ? a.text.localeCompare(b.text) : b.text.localeCompare(a.text)
-    );
-    setNotes(sorted);
-    setSortAsc(!sortAsc);
-  };
-  return (
+ return (
     <Router>
-      <Navbar sortNotes={sortNotes} sortAsc={sortAsc} />
+      <Navbar />
       <div className="app-container">
         <Routes>
           <Route
