@@ -176,3 +176,19 @@ button.delete-btn:hover {
     padding: 10px;
   }
 }
+.char-count {
+  display: block;              
+  font-size: 13px;
+  margin-top: 6px;             
+  margin-bottom: 10px;
+  color: #666666;
+  text-align: right;           
+}
+.char-count.warning {
+  color: orange;
+  font-weight: 600;
+}
+.char-count.danger {
+  color: red;
+  font-weight: bold;
+}
