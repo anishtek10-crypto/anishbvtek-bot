@@ -1,5 +1,5 @@
-import {useState, useEffect} from "react";
-import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import api from "./api";
 import NoteForm from "./components/NoteForm";
 import NoteList from "./components/NoteList";
@@ -7,7 +7,7 @@ import Navbar from "./components/Navbar";
 import "./App.css";
 function App() {
   const [notes, setNotes] = useState([]);
-  const [search,setSearch] = useState("");
+  const [search, setSearch] = useState("");
   useEffect(() => {
     fetchNotes();
   }, []);
@@ -16,42 +16,40 @@ function App() {
       const res = await api.get("/notes");
       setNotes(res.data);
     } catch (err) {
-      console.error("Error fetching notes:", err);
+      console.error(err);
     }
   };
   const addNote = async (note) => {
     try {
-      const newNote = { ...note, createdAt: new Date().toLocaleString() };
+      const newNote = {
+        ...note,
+        createdAt: new Date().toLocaleString(),
+      };
       await api.post("/notes", newNote);
-      fetchNotes(); 
+      fetchNotes();
     } catch (err) {
-      console.error("Error adding note:", err);
+      console.error(err);
     }
   };
   const deleteNote = async (id) => {
-    try {
-      await api.delete(`/notes/${id}`);
-      setNotes((prev) => prev.filter((n) => n.id !== id)); 
-    } catch (err) {
-      console.error("Error deleting note:", err);
-    }
+    await api.delete(`/notes/${id}`);
+    setNotes(notes.filter((n) => n.id !== id));
   };
   const toggleStatus = async (id, value) => {
-    try {
-      const note = notes.find((n) => n.id === id);
-      const res = await api.put(`/notes/${id}`, { ...note, status: value });
-      setNotes((prev) => prev.map((n) => (n.id === id ? res.data : n)));
-    } catch (err) {
-      console.error("Error toggling status:", err);
-    }
+    const note = notes.find((n) => n.id === id);
+    const res = await api.put(`/notes/${id}`, {
+      ...note,
+      status: value,
+    });
+    setNotes(notes.map((n) => (n.id === id ? res.data : n)));
   };
-  const filteredNotes = notes.filter((note)=>
+  const filteredNotes = notes.filter((note) =>
     note.title.toLowerCase().includes(search.toLowerCase())
   );
-  const totalTasks = filteredNotes.length;
-  const completedTasks = filteredNotes.filter((n) => n.status).length;
-  const pendingTasks = filteredNotes.filter((n)=>!n.status).length;
-  const highPriorityTasks = filteredNotes.filter((n)=>n.priority>=4).length;
+  const total = filteredNotes.length;
+  const completed = filteredNotes.filter((n) => n.status).length;
+  const pending = filteredNotes.filter((n) => !n.status).length;
+  const high = filteredNotes.filter((n) => n.priority >= 4).length;
   return (
     <Router>
       <Navbar />
@@ -62,17 +60,16 @@ function App() {
             element={
               <>
                 <input
-                  type="text"
-                  placeholder="Search task"
+                  className="search-input"
+                  placeholder="Search task..."
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  className="search-input"
                 />
                 <div className="dashboard">
-                  <div className="card total">Total: {totalTasks}</div>
-                  <div className="card completed">Completed: {completedTasks}</div>
-                  <div className="card pending">Pending: {pendingTasks}</div>
-                  <div className="card high">High: {highPriorityTasks}</div>
+                  <div className="card">Total: {total}</div>
+                  <div className="card green">Completed: {completed}</div>
+                  <div className="card orange">Pending: {pending}</div>
+                  <div className="card red">High Priority: {high}</div>
                 </div>
                 <NoteList
                   notes={filteredNotes}
@@ -82,10 +79,7 @@ function App() {
               </>
             }
           />
-          <Route
-            path="/add"
-            element={<NoteForm addNote={addNote} />}
-          />
+          <Route path="/add" element={<NoteForm addNote={addNote} />} />
         </Routes>
       </div>
     </Router>

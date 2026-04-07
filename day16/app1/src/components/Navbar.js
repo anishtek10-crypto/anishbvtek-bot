@@ -24,4 +24,3 @@ const styles ={
         textDecoration : "none",
     },
 }; 
-export default Navbar;
