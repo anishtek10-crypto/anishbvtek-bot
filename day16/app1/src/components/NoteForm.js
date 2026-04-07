@@ -4,7 +4,7 @@ function NoteForm({ addNote }) {
   const [note, setNote] = useState({
     title: "",
     status: false,
-    priority : 3
+    priority : 0
   });
   const [error, setError] = useState(""); 
   const navigate = useNavigate();
@@ -14,14 +14,17 @@ function NoteForm({ addNote }) {
       setError("Note cannot be empty"); 
       return;
     }
+    if(note.title.length>50){
+      setError("Task cannot have more than 50 characters");
+    }
     addNote(note);
-    setNote({ title: "", status: false,priority:3});
+    setNote({ title: "", status: false,priority:0});
     setError("");
     navigate("/"); 
   };
   return (
     <form onSubmit={handleSubmit}>
-      <input type="text" placeholder="Enter note" value={note.title} onChange={(e) => {setNote({ ...note, title: e.target.value });setError("");}}/>
+      <input type="text" placeholder="Enter note" value={note.title} maxLength={50} onChange={(e) => {setNote({ ...note, title: e.target.value });setError("");}}/>
       <label>
         Done:
         <input type="checkbox" checked={note.status} onChange={(e) => setNote({ ...note, status: e.target.checked })}/>

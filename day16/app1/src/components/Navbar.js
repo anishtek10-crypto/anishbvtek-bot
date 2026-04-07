@@ -4,8 +4,8 @@ function Navbar(){
         <nav style={styles.nav}>
         <h2>Notes App</h2>
         <div>
-            <Link to = "/" style = {styles.link}>Home</Link>
-            <Link to = "/add" style = {styles.link}>Add Note</Link>
+            <Link to = "/" style = {styles.link}>List Of Task</Link>
+            <Link to = "/add" style = {styles.link}>Add New Task</Link>
         </div>
         </nav>
     );

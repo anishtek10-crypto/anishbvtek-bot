@@ -7,6 +7,7 @@ import Navbar from "./components/Navbar";
 import "./App.css";
 function App() {
   const [notes, setNotes] = useState([]);
+  const [search,setSearch] = useState("");
   useEffect(() => {
     fetchNotes();
   }, []);
@@ -44,7 +45,14 @@ function App() {
       console.error("Error toggling status:", err);
     }
   };
- return (
+  const filteredNotes = notes.filter((note)=>
+    note.title.toLowerCase().includes(search.toLowerCase())
+  );
+  const totalTasks = filteredNotes.length;
+  const completedTasks = filteredNotes.filter((n) => n.status).length;
+  const pendingTasks = filteredNotes.filter((n)=>!n.status).length;
+  const highPriorityTasks = filteredNotes.filter((n)=>n.priority>=4).length;
+  return (
     <Router>
       <Navbar />
       <div className="app-container">
@@ -52,14 +60,32 @@ function App() {
           <Route
             path="/"
             element={
-              <NoteList
-                notes={notes}
-                deleteNote={deleteNote}
-                toggleStatus={toggleStatus}
-              />
+              <>
+                <input
+                  type="text"
+                  placeholder="Search task"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  className="search-input"
+                />
+                <div className="dashboard">
+                  <div className="card total">Total: {totalTasks}</div>
+                  <div className="card completed">Completed: {completedTasks}</div>
+                  <div className="card pending">Pending: {pendingTasks}</div>
+                  <div className="card high">High: {highPriorityTasks}</div>
+                </div>
+                <NoteList
+                  notes={filteredNotes}
+                  deleteNote={deleteNote}
+                  toggleStatus={toggleStatus}
+                />
+              </>
             }
           />
-          <Route path="/add" element={<NoteForm addNote={addNote} />} />
+          <Route
+            path="/add"
+            element={<NoteForm addNote={addNote} />}
+          />
         </Routes>
       </div>
     </Router>
