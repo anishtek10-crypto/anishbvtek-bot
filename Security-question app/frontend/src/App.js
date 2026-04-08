@@ -5,11 +5,11 @@ import "./form.css";
 function App() {
   const [questions, setQuestions] = useState([]);
   const [form, setForm] = useState([
-    { question:"",answer:"",confirm:"" },
-    { question:"",answer:"",confirm:"" },
-    { question:"",answer:"",confirm:"" },
-    { question:"",answer:"",confirm:"" },
-    { question:"",answer:"",confirm:"" },
+    { questionId:"",answer:"",confirm:"" },
+    { questionId:"",answer:"",confirm:"" },
+    { questionId:"",answer:"",confirm:"" },
+    { questionId:"",answer:"",confirm:"" },
+    { questionId:"",answer:"",confirm:"" },
   ]);
   useEffect(() => {
     loadQuestions();
@@ -25,7 +25,7 @@ function App() {
   }
   async function handleSubmit() {
     for (let item of form) {
-      if (!item.question || !item.answer || !item.confirm) {
+      if (!item.questionId || !item.answer || !item.confirm) {
         alert("Fill all fields");
         return;
       }

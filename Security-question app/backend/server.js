@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const fs = require("fs");
 const path = require("path");
-const app = express();
+const app = express(); 
 app.use(cors());
 app.use(express.json());
 app.get("/questions", (req, res) => {
@@ -10,10 +10,9 @@ app.get("/questions", (req, res) => {
     path.join(__dirname, "data", "question.json")
   );
   const questions = JSON.parse(data);
-  const result = questions.map((q) => q.text);
-  res.send(result);
+  res.send(questions);
 });
-app.post("/answers", (req, res) => {
+ app.post("/answers", (req, res) => {
   const answers = req.body;
   const fileData = fs.readFileSync(
     path.join(__dirname, "data", "answer.json")
@@ -21,7 +20,7 @@ app.post("/answers", (req, res) => {
   const existing = JSON.parse(fileData);
   const newData = answers.map((item) => ({
     id: Date.now() + Math.random(),
-    question: item.question,
+    questionId: item.questionId,
     answer: item.answer,
     createdAt: new Date(),
   }));
@@ -29,9 +28,13 @@ app.post("/answers", (req, res) => {
   fs.writeFileSync(
     path.join(__dirname, "data", "answer.json"),
     JSON.stringify(finalData, null, 2)
-  );
+  ); 
   res.send({ message: "data saved" });
 });
-app.listen(5000, () => {
-  console.log("Server started on port 5000");
-});
+if (process.env.NODE_ENV !== "test") {
+  app.listen(5000, () => {
+    console.log("Server started on port 5000");
+  });
+}
+module.exports = app;
+ 
