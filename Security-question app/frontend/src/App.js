@@ -25,33 +25,42 @@ function App() {
     copy[index][type] = value;
     setForm(copy);
   }
-  async function handleSubmit() {
+ async function handleSubmit() {
   let newErrors = [];
-  form.forEach((item, index) => {
+  for (let i = 0; i < form.length; i++) {
+    const item = form[i];
+    const question = questions.find(q => q.id === Number(item.questionId));
     if (!item.questionId || !item.answer || !item.confirm) {
-      newErrors[index] = "All fields are required";
-    } else if (item.answer !== item.confirm) {
-      newErrors[index] = "Answers do not match";
+      newErrors[i] = "All fields are required";
+      continue;
     }
-  });
-   if (newErrors.some((e) => e)) {
-    setErrors(newErrors);
-    return;
+    if (item.answer !== item.confirm) {
+      newErrors[i] = "Answers do not match";
+      continue;
+    }
+     if (question?.type === "text" && /\d/.test(item.answer)) {
+      newErrors[i] = "Only text allowed (no numbers)";
+      continue;
+    }
+     if (question?.type === "number" && !/^\d+$/.test(item.answer)) {
+      newErrors[i] = "Only numbers allowed";
+      continue;
+    }
   }
-   setErrors([]);
+  setErrors(newErrors);
+   if (newErrors.some(e => e)) return;
   await sendAnswers(form);
-  setSuccess("Saved successfully "); 
+  setSuccess("Saved successfully");
   setForm([
-    {questionId:"",answer:"",confirm:""},
-    {questionId:"",answer:"",confirm:""},
-    {questionId:"",answer:"",confirm:""},
-    {questionId:"",answer:"",confirm:""},
-    {questionId:"",answer:"",confirm:""}
+    { questionId:"",answer:"",confirm:"" },
+    { questionId:"",answer:"",confirm:"" },
+    { questionId:"",answer:"",confirm:"" },
+    { questionId:"",answer:"",confirm:"" },
+    { questionId:"",answer:"",confirm:"" }
   ]);
-  setErrors([]);
-  setTimeout(()=>{
+  setTimeout(() => {
     setSuccess("");
-  },3000);
+  }, 3000);
 }
 const isValid = form.every(
   item=>

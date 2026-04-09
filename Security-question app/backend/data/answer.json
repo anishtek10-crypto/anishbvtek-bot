@@ -292,5 +292,35 @@
     "questionId": 4,
     "answer": "246",
     "createdAt": "2026-04-09T09:51:47.013Z"
+  },
+  {
+    "id": 1775734397923.8108,
+    "questionId": 2,
+    "answer": "qw",
+    "createdAt": "2026-04-09T11:33:17.923Z"
+  },
+  {
+    "id": 1775734397923.74,
+    "questionId": 1,
+    "answer": "abc",
+    "createdAt": "2026-04-09T11:33:17.923Z"
+  },
+  {
+    "id": 1775734397923.4277,
+    "questionId": 3,
+    "answer": "bruno",
+    "createdAt": "2026-04-09T11:33:17.923Z"
+  },
+  {
+    "id": 1775734397923.809,
+    "questionId": 4,
+    "answer": "noo",
+    "createdAt": "2026-04-09T11:33:17.923Z"
+  },
+  {
+    "id": 1775734397923.7043,
+    "questionId": 5,
+    "answer": "qwer",
+    "createdAt": "2026-04-09T11:33:17.923Z"
   }
 ]
