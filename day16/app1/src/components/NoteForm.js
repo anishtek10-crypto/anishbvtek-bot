@@ -14,33 +14,16 @@ function NoteForm({ addNote }) {
       setError("Task cannot be empty");
       return;
     }
-    if (note.title.length > 50) {
-      setError("Maximum 50 characters allowed");
-      return;
-    }
     addNote(note);
     navigate("/");
-  };
-  const getCharClass = () => {
-    if (note.title.length > 45) return "danger";
-    if (note.title.length > 40) return "warning";
-    return "";
   };
   return (
     <form onSubmit={handleSubmit}>
       <input
-        type="text"
         placeholder="Enter task"
         value={note.title}
-        maxLength={50}
-        onChange={(e) => {
-          setNote({ ...note, title: e.target.value });
-          setError("");
-        }}
+        onChange={(e) => setNote({ ...note, title: e.target.value })}
       />
-      <p className={`char-count ${getCharClass()}`}>
-        {note.title.length} / 50 characters
-      </p>
       <label>
         Done:
         <input

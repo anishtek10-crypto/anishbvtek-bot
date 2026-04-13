@@ -1,5 +1,7 @@
 function NoteList({ notes, deleteNote, toggleStatus }) {
-  const sortedNotes = [...notes].sort((a, b) => b.priority - a.priority);
+  const sortedNotes = [...(notes || [])].sort(
+    (a, b) => b.priority - a.priority
+  );
   return (
     <table className="task-table">
       <thead>
@@ -21,10 +23,10 @@ function NoteList({ notes, deleteNote, toggleStatus }) {
         ) : (
           sortedNotes.map((note) => (
             <tr key={note.id}>
-              <td>{note.title}</td>
+              <td>{note.title || "No Title"}</td>
               <td>
-                <span className={`priority p-${note.priority}`}>
-                  {note.priority}
+                <span className={`priority p-${note.priority || 1}`}>
+                  {note.priority || 1}
                 </span>
               </td>
               <td>
@@ -35,9 +37,15 @@ function NoteList({ notes, deleteNote, toggleStatus }) {
                   {note.status ? "Completed" : "Pending"}
                 </button>
               </td>
-              <td>{note.createdAt}</td>
+              <td>{note.createdAt || "N/A"}</td>
               <td>
-                <button onClick={() => deleteNote(note.id)}>
+                <button
+                  onClick={() => {
+                    if (window.confirm("Delete this task?")) {
+                      deleteNote(note.id);
+                    }
+                  }}
+                >
                   Delete
                 </button>
               </td>
