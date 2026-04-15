@@ -3,9 +3,6 @@ package com.example.orderapp.entity;
 import jakarta.persistence.*;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.*;
-
 @Entity
 public class Order1 {
 
@@ -14,10 +11,11 @@ public class Order1 {
 	private int id;
 
 	private String status;
-	@JsonManagedReference
 
 	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
 	private List<OrderLine> items;
+
+	// Getters & Setters
 
 	public int getId() {
 		return id;
