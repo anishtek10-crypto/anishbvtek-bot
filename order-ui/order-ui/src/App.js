@@ -1,81 +1,54 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "./App.css";
  
 function App() {
   const [items, setItems] = useState([{ item: "", price: "" }]);
-  const [response, setResponse] = useState("");
+  const [orderId, setOrderId] = useState(null);
  
   const handleChange = (index, field, value) => {
-    const updatedItems = [...items];
-    updatedItems[index][field] = value;
-    setItems(updatedItems);
+    const newItems = [...items];
+    newItems[index][field] = value;
+    setItems(newItems);
   };
  
   const addItem = () => {
     setItems([...items, { item: "", price: "" }]);
   };
  
-  const removeItem = (index) => {
-    const updatedItems = items.filter((_, i) => i !== index);
-    setItems(updatedItems);
-  };
- 
   const handleSubmit = async () => {
-    try {
-      const res = await axios.post("http://localhost:8080/orders", {
-        items: items.map((i) => ({
-          item: i.item,
-          price: parseFloat(i.price),
-        })),
-      });
- 
-      setResponse("Order Created with ID: " + res.data.id);
-    } catch (error) {
-      console.error(error);
-      setResponse("Error creating order");
-    }
+    const response = await axios.post("http://localhost:8080/orders", {
+      items: items,
+    });
+    setOrderId(response.data.id);
   };
  
   return (
-    <div className="container">
-      <h2>🛒 Order Form</h2>
+    <div>
+      <h1>Order Form</h1>
  
       {items.map((item, index) => (
-        <div className="row" key={index}>
+        <div key={index}>
           <input
-            type="text"
-            placeholder="Item Name"
+            placeholder="Item"
             value={item.item}
             onChange={(e) =>
               handleChange(index, "item", e.target.value)
             }
           />
- 
           <input
-            type="number"
             placeholder="Price"
             value={item.price}
             onChange={(e) =>
               handleChange(index, "price", e.target.value)
             }
           />
- 
-          <button className="remove" onClick={() => removeItem(index)}>
-            NO
-          </button>
         </div>
       ))}
  
-      <button className="add" onClick={addItem}>
-         Add Item
-      </button>
+      <button onClick={addItem}>Add Item</button>
+      <button onClick={handleSubmit}>Submit</button>
  
-      <button className="submit" onClick={handleSubmit}>
-        Submit Order
-      </button>
- 
-      {response && <h3 className="response">{response}</h3>}
+      {orderId && <p>Order ID: {orderId}</p>}
     </div>
   );
 }
