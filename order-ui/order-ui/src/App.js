@@ -3,11 +3,8 @@ import axios from "axios";
 import "./App.css";
  
 function App() {
-  const [items, setItems] = useState([
-    { item: "", price: "" }
-  ]);
- 
-  const [errors, setErrors] = useState("");
+  const [items, setItems] = useState([{ item: "", price: "" }]);
+  const [response, setResponse] = useState("");
  
   const handleChange = (index, field, value) => {
     const updatedItems = [...items];
@@ -24,111 +21,64 @@ function App() {
     setItems(updatedItems);
   };
  
-  const validate = () => {
-    for (let i = 0; i < items.length; i++) {
-      if (!items[i].item.trim()) {
-        return "Item name cannot be empty";
-      }
-      if (!items[i].price || items[i].price <= 0) {
-        return "Price must be greater than 0";
-      }
-    }
-    return "";
-  };
- 
   const handleSubmit = async () => {
-    const validationError = validate();
- 
-    if (validationError) {
-      setErrors(validationError);
-      return;
-    }
- 
-    setErrors("");
- 
-    const data = {
-      status: "CREATED",
-      items: items.map((item) => ({
-        item: item.item,
-        price: parseFloat(item.price)
-      }))
-    };
- 
     try {
-      await axios.post("http://localhost:8080/orders", data);
+      const res = await axios.post("http://localhost:8080/orders", {
+        items: items.map((i) => ({
+          item: i.item,
+          price: parseFloat(i.price),
+        })),
+      });
  
-      alert(" Order Created Successfully!");
- 
-      setItems([{ item: "", price: "" }]);
+      setResponse("Order Created with ID: " + res.data.id);
     } catch (error) {
       console.error(error);
-      alert("Failed to save order");
+      setResponse("Error creating order");
     }
   };
  
   return (
     <div className="container">
-      <h2> Order Management</h2>
+      <h2>🛒 Order Form</h2>
  
-      {errors && <p className="error">{errors}</p>}
+      {items.map((item, index) => (
+        <div className="row" key={index}>
+          <input
+            type="text"
+            placeholder="Item Name"
+            value={item.item}
+            onChange={(e) =>
+              handleChange(index, "item", e.target.value)
+            }
+          />
  
-      <table>
-        <thead>
-          <tr>
-            <th>Item</th>
-            <th>Price</th>
-            <th>Action</th>
-          </tr>
-        </thead>
+          <input
+            type="number"
+            placeholder="Price"
+            value={item.price}
+            onChange={(e) =>
+              handleChange(index, "price", e.target.value)
+            }
+          />
  
-        <tbody>
-          {items.map((row, index) => (
-            <tr key={index}>
-              <td>
-                <input
-                  type="text"
-                  placeholder="Enter item"
-                  value={row.item}
-                  onChange={(e) =>
-                    handleChange(index, "item", e.target.value)
-                  }
-                />
-              </td>
+          <button className="remove" onClick={() => removeItem(index)}>
+            NO
+          </button>
+        </div>
+      ))}
  
-              <td>
-                <input
-                  type="number"
-                  placeholder="Enter price"
-                  value={row.price}
-                  onChange={(e) =>
-                    handleChange(index, "price", e.target.value)
-                  }
-                />
-              </td>
- 
-              <td>
-                <button
-                  className="delete-btn"
-                  onClick={() => removeItem(index)}
-                  disabled={items.length === 1}
-                >
-                  NO
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
- 
-      <button className="add-btn" onClick={addItem}>
-        ➕ Add Item
+      <button className="add" onClick={addItem}>
+         Add Item
       </button>
  
-      <button className="submit-btn" onClick={handleSubmit}>
-        🚀 Submit Order
+      <button className="submit" onClick={handleSubmit}>
+        Submit Order
       </button>
+ 
+      {response && <h3 className="response">{response}</h3>}
     </div>
   );
 }
  
 export default App;
+ 
