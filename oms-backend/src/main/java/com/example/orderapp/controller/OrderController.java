@@ -2,8 +2,7 @@ package com.example.orderapp.controller;
 
 import com.example.orderapp.dto.OrderResponse;
 import com.example.orderapp.entity.Order1;
-import com.example.orderapp.entity.OrderLine;
-import com.example.orderapp.repository.Order1Repository;
+import com.example.orderapp.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,22 +11,14 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 public class OrderController {
 
-	@Autowired
-	private Order1Repository repo;
+    @Autowired
+    private OrderService service;
 
-	@PostMapping
-	public OrderResponse createOrder(@RequestBody Order1 order) {
+    @PostMapping
+    public OrderResponse createOrder(@RequestBody Order1 order) {
 
-		order.setStatus("CREATED");
+        Order1 saved = service.createOrder(order);
 
-		if (order.getItems() != null) {
-			for (OrderLine item : order.getItems()) {
-				item.setOrder(order);
-			}
-		}
-
-		Order1 saved = repo.save(order);
-
-		return new OrderResponse(saved.getId());
-	}
+        return new OrderResponse(saved.getId());
+    }
 }

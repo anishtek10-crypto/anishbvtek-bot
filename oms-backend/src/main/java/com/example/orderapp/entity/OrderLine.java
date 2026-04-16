@@ -11,12 +11,11 @@ public class OrderLine {
 
 	private String item;
 	private double price;
+	private int quantity;
 
 	@ManyToOne
 	@JoinColumn(name = "order_id")
 	private Order1 order;
-
-	// Getters & Setters
 
 	public int getId() {
 		return id;
@@ -48,5 +47,13 @@ public class OrderLine {
 
 	public void setOrder(Order1 order) {
 		this.order = order;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 }
